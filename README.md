@@ -17,3 +17,10 @@ By completing this workshop, you will learn how to:
 * **Backend:** Python, FastAPI
 * **Containerization:** Docker, Docker Compose
 * **Cloud Infrastructure:** AWS (ECR, ECS, Fargate, ALB, VPC)
+
+---
+
+### About Us
+**Built with ❤️ by the AWS Student Builder Group at IPN for our tech community.**
+
+We are a community of students passionate about cloud computing, architecture, and software development. Join us in our mission to learn, build, and share knowledge!
