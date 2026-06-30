@@ -1,0 +1,21 @@
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    networks:
+      - paw-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - paw-network
+
+networks:
+  paw-network:
+    driver: bridge

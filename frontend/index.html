@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paw Resort - Sistema Veterinario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">🐾 Paw Resort</a>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Pacientes Registrados</h2>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Mascota</th>
+                            <th>Dueño</th>
+                            <th>Expediente Médico</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pets-table-body">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // En local usamos localhost, en AWS los alumnos cambiarán esto por la URL del ALB
+        const API_URL = 'http://localhost:8000/api/pets';
+
+        async function fetchPets() {
+            try {
+                const response = await fetch(API_URL);
+                const pets = await response.json();
+                const tableBody = document.getElementById('pets-table-body');
+                
+                tableBody.innerHTML = '';
+                pets.forEach(pet => {
+                    const row = `
+                        <tr>
+                            <td>${pet.id}</td>
+                            <td><strong>${pet.name}</strong></td>
+                            <td>${pet.owner}</td>
+                            <td>${pet.record}</td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            } catch (error) {
+                console.error("Error al conectar con la API:", error);
+                document.getElementById('pets-table-body').innerHTML = 
+                    '<tr><td colspan="4" class="text-danger text-center">Error al conectar con el servidor (Backend).</td></tr>';
+            }
+        }
+
+        window.onload = fetchPets;
+    </script>
+</body>
+</html>
